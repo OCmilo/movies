@@ -16,6 +16,9 @@ const GlobalStyle = createGlobalStyle`
     background-color: ${theme.colors.white};
     color: ${theme.colors.black};
     box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
   }
   
   #__next {
