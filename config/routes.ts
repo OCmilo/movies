@@ -1,7 +1,7 @@
 const routes = [
   {
     path: '/',
-    name: 'Home',
+    name: 'Popular',
   },
   {
     path: '/favorites',

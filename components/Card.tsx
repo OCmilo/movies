@@ -2,14 +2,6 @@ import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import styled from 'styled-components'
 
-type CardProps = {
-  image: string
-  title: string
-  releaseDate: string
-  rating: number
-  handleFavorite: MouseEventHandler<HTMLButtonElement>
-}
-
 const CardWrapper = styled.div`
   padding: 0.5rem;
   background-color: ${({ theme }) => theme.colors.white};
@@ -26,11 +18,28 @@ const ImageWrapper = styled.div`
   height: 27rem;
 `
 
-const DescriptionWrapper = styled.div`
+const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  overflow: hidden;
+  align-items: center;
 `
+
+const Title = styled.h3`
+  font-weight: 600;
+  margin: 0.8rem 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 18rem;
+`
+
+type CardProps = {
+  image: string
+  title: string
+  releaseDate: string
+  rating: number
+  handleFavorite: MouseEventHandler<HTMLButtonElement>
+}
 
 const Card: React.FC<CardProps> = ({
   image,
@@ -52,14 +61,14 @@ const Card: React.FC<CardProps> = ({
       />
     </ImageWrapper>
     <div>
-      <h3>{title}</h3>
-      <DescriptionWrapper>
-        <p>Rating: {rating}</p>
-        <p>{releaseDate}</p>
-      </DescriptionWrapper>
-      <button type="button" onClick={handleFavorite}>
-        Favorite
-      </button>
+      <Title>{title}</Title>
+      <span>Release: {releaseDate}</span>
+      <InfoWrapper>
+        <span>Rating: {rating}</span>
+        <button type="button" onClick={handleFavorite}>
+          Favorite
+        </button>
+      </InfoWrapper>
     </div>
   </CardWrapper>
 )

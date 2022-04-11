@@ -4,12 +4,10 @@ import { useState } from 'react'
 import { useQuery } from 'react-query'
 import Card from '../components/Card'
 import { getPopularMovies } from '../api'
+import { convertDate, imagePath } from '../utils'
 
 import type { NextPage } from 'next'
 import type { PopularMoviesResponse } from '../api'
-
-const imagePath = (path: string) => `https://image.tmdb.org/t/p/w500${path}`
-const convertDate = (date: string) => new Date(date).toLocaleDateString()
 
 const MoviesWrapper = styled.div`
   display: grid;
@@ -26,6 +24,10 @@ const Home: NextPage = () => {
     () => getPopularMovies(page),
     { keepPreviousData: true }
   )
+
+  const handleFavorite = (movieId: number) => {
+    console.log(movieId)
+  }
 
   return (
     <>
@@ -44,6 +46,7 @@ const Home: NextPage = () => {
                 image={imagePath(poster_path)}
                 releaseDate={convertDate(release_date)}
                 rating={vote_average}
+                handleFavorite={() => handleFavorite(id)}
               />
             )
           )}
