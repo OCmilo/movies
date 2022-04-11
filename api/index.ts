@@ -3,7 +3,7 @@ import { PopularMoviesResponse } from './types'
 const API_BASE = 'https://api.themoviedb.org/3/'
 const API_KEY = process.env.NEXT_PUBLIC_MOVIES_API_KEY
 if (!API_KEY) {
-  throw new Error('MOVIES_API_KEY is not defined')
+  throw new Error('NEXT_PUBLIC_MOVIES_API_KEY is not defined')
 }
 
 const buildRequest = (url: string): URL => {
