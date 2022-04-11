@@ -20,6 +20,7 @@ const getPopularMovies = async (
 
   const answer = await fetch(query.toString())
   const data: PopularMoviesResponse = await answer.json()
+  console.log(data)
 
   return data
 }

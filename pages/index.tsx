@@ -1,13 +1,15 @@
-import Image from 'next/image'
 import styled from 'styled-components'
+import Head from 'next/head'
 import { useState } from 'react'
 import { useQuery } from 'react-query'
+import Card from '../components/Card'
 import { getPopularMovies } from '../api'
 
 import type { NextPage } from 'next'
 import type { PopularMoviesResponse } from '../api'
 
 const imagePath = (path: string) => `https://image.tmdb.org/t/p/w500${path}`
+const convertDate = (date: string) => new Date(date).toLocaleDateString()
 
 const MoviesWrapper = styled.div`
   display: grid;
@@ -27,24 +29,24 @@ const Home: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Popular Movies</title>
+      </Head>
       {status === 'loading' && <p>Loading...</p>}
       {status === 'error' && <p>Error: {error.message}</p>}
       {status === 'success' && (
         <MoviesWrapper>
-          {data.results.map(({ id, title, poster_path }) => (
-            <div key={id}>
-              <Image
-                src={imagePath(poster_path)}
-                alt={title}
-                width={300}
-                height={450}
-                loading="lazy"
+          {data.results.map(
+            ({ id, title, poster_path, release_date, vote_average }) => (
+              <Card
+                key={id}
+                title={title}
+                image={imagePath(poster_path)}
+                releaseDate={convertDate(release_date)}
+                rating={vote_average}
               />
-              <div>
-                <h3>{title}</h3>
-              </div>
-            </div>
-          ))}
+            )
+          )}
         </MoviesWrapper>
       )}
     </>

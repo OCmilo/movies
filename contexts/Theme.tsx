@@ -12,17 +12,20 @@ const GlobalStyle = createGlobalStyle`
   }
 
   body {
+    height: 100%;
     font-family: ${theme.font};
     background-color: ${theme.colors.white};
     color: ${theme.colors.black};
     box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
   }
   
   #__next {
     height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: space-between;
+    min-height: 100vh;
+    overflow-y: overlay;
   }
   
   ::selection {

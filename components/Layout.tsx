@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const Main = styled.main`
   flex: 1;
-  padding: 0 3rem;
+  padding: 1rem 3rem;
 `
 
 type LayoutProps = {
