@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useReducer } from 'react'
-import cartReducer, {
+import moviesReducer, {
   initialState,
   addAction,
   removeAction,
@@ -8,13 +8,13 @@ import cartReducer, {
 import type { Movie } from '../api/types'
 
 type MoviesContextType = {
-  cart: Movie[]
+  movies: Movie[]
   add: (movie: Movie) => void
   remove: (id: number) => void
 }
 
-const CartContext = createContext<MoviesContextType>({
-  cart: initialState,
+const MoviesContext = createContext<MoviesContextType>({
+  movies: initialState,
   add: () => {
     console.warn('add not set')
   },
@@ -27,19 +27,19 @@ type MoviesStoreProps = {
   children: React.ReactNode
 }
 
-const MoviesStore: React.FC<MoviesStoreProps> = ({ children }) => {
-  const [cart, dispatch] = useReducer(cartReducer, initialState)
+const MovieStore: React.FC<MoviesStoreProps> = ({ children }) => {
+  const [movies, dispatch] = useReducer(moviesReducer, initialState)
 
   const add = (movie: Movie) => dispatch(addAction(movie))
   const remove = (id: number) => dispatch(removeAction(id))
 
   return (
-    <CartContext.Provider value={{ cart, add, remove }}>
+    <MoviesContext.Provider value={{ movies, add, remove }}>
       {children}
-    </CartContext.Provider>
+    </MoviesContext.Provider>
   )
 }
 
-const useCart = () => useContext(CartContext)
+const useMovieStore = () => useContext(MoviesContext)
 
-export { useCart, MoviesStore }
+export { useMovieStore, MovieStore }

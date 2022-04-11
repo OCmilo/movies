@@ -26,9 +26,9 @@ const moviesReducer = (state = initialState, action: Action) => {
   }
 }
 
-const addAction = (newCartItem: Movie) => ({
+const addAction = (newMovieItem: Movie) => ({
   type: actions.ADD,
-  payload: newCartItem,
+  payload: newMovieItem,
 })
 
 const removeAction = (id: number) => ({

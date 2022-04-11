@@ -8,6 +8,7 @@ import { convertDate, imagePath } from '../utils'
 
 import type { NextPage } from 'next'
 import type { PopularMoviesResponse } from '../api'
+import { useMovieStore } from '../contexts/Movies'
 
 const MoviesWrapper = styled.div`
   display: grid;
@@ -18,7 +19,9 @@ const MoviesWrapper = styled.div`
 `
 
 const Home: NextPage = () => {
+  // TODO pagination
   const [page, setPage] = useState(1)
+  const { add, movies, remove } = useMovieStore()
   const { data, status, error } = useQuery<PopularMoviesResponse, Error>(
     ['popular-movies', page],
     () => getPopularMovies(page),
@@ -26,7 +29,16 @@ const Home: NextPage = () => {
   )
 
   const handleFavorite = (movieId: number) => {
-    console.log(movieId)
+    const isMovieInFavorites = movies.some((movie) => movie.id === movieId)
+    if (isMovieInFavorites) {
+      remove(movieId)
+      return
+    }
+
+    const movie = data!.results.find((movie) => movie.id === movieId)
+    if (movie) {
+      add(movie)
+    }
   }
 
   return (
