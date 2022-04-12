@@ -1,8 +1,15 @@
-import React, { createContext, useContext, useReducer } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useReducer,
+} from 'react'
 import moviesReducer, {
   initialState,
   addAction,
   removeAction,
+  setAction,
 } from '../reducers/movies'
 
 import type { Movie } from '../api/types'
@@ -22,6 +29,9 @@ const MoviesContext = createContext<MoviesContextType>({
     console.warn('remove not set')
   },
 })
+MoviesContext.displayName = 'MoviesContext'
+
+const MOVIES_STORAGE_KEY = 'movies'
 
 type MoviesStoreProps = {
   children: React.ReactNode
@@ -30,8 +40,28 @@ type MoviesStoreProps = {
 const MovieStore: React.FC<MoviesStoreProps> = ({ children }) => {
   const [movies, dispatch] = useReducer(moviesReducer, initialState)
 
-  const add = (movie: Movie) => dispatch(addAction(movie))
-  const remove = (id: number) => dispatch(removeAction(id))
+  const add = useCallback(
+    (movie: Movie) => dispatch(addAction(movie)),
+    [dispatch]
+  )
+  const remove = useCallback(
+    (id: number) => dispatch(removeAction(id)),
+    [dispatch]
+  )
+
+  useEffect(() => {
+    const storedMovies = localStorage.getItem(MOVIES_STORAGE_KEY)
+    if (storedMovies) {
+      const parsedMovies: Movie[] = JSON.parse(storedMovies)
+      dispatch(setAction(parsedMovies))
+    }
+  }, [])
+
+  useEffect(() => {
+    if (movies.length) {
+      localStorage.setItem(MOVIES_STORAGE_KEY, JSON.stringify(movies))
+    }
+  }, [movies])
 
   return (
     <MoviesContext.Provider value={{ movies, add, remove }}>
@@ -40,6 +70,4 @@ const MovieStore: React.FC<MoviesStoreProps> = ({ children }) => {
   )
 }
 
-const useMovieStore = () => useContext(MoviesContext)
-
-export { useMovieStore, MovieStore }
+export { MoviesContext, MovieStore }

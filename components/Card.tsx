@@ -38,6 +38,7 @@ type CardProps = {
   title: string
   releaseDate: string
   rating: number
+  isFavorite: boolean
   handleFavorite: MouseEventHandler<HTMLButtonElement>
 }
 
@@ -46,6 +47,7 @@ const Card: React.FC<CardProps> = ({
   title,
   releaseDate,
   rating,
+  isFavorite,
   handleFavorite,
 }) => (
   <CardWrapper>
@@ -66,7 +68,7 @@ const Card: React.FC<CardProps> = ({
       <InfoWrapper>
         <span>Rating: {rating}</span>
         <button type="button" onClick={handleFavorite}>
-          Favorite
+          {isFavorite ? 'Unstar' : 'Star'}
         </button>
       </InfoWrapper>
     </div>

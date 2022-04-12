@@ -5,10 +5,11 @@ import { useQuery } from 'react-query'
 import Card from '../components/Card'
 import { getPopularMovies } from '../api'
 import { convertDate, imagePath } from '../utils'
+import useFavoriteMovies from '../hooks/useFavoriteMovies'
+import useMovieStore from '../hooks/useMovieStore'
 
 import type { NextPage } from 'next'
 import type { PopularMoviesResponse } from '../api'
-import { useMovieStore } from '../contexts/Movies'
 
 const MoviesWrapper = styled.div`
   display: grid;
@@ -18,28 +19,25 @@ const MoviesWrapper = styled.div`
   margin-top: 2rem;
 `
 
+const Title = styled.h1`
+  margin-left: 1.5rem;
+  text-align: center;
+
+  @media ${({ theme }) => theme.devices.tablet} {
+    text-align: left;
+  }
+`
+
 const Home: NextPage = () => {
   // TODO pagination
   const [page, setPage] = useState(1)
-  const { add, movies, remove } = useMovieStore()
+  const { movies } = useMovieStore()
+  const { handle } = useFavoriteMovies()
   const { data, status, error } = useQuery<PopularMoviesResponse, Error>(
     ['popular-movies', page],
     () => getPopularMovies(page),
     { keepPreviousData: true }
   )
-
-  const handleFavorite = (movieId: number) => {
-    const isMovieInFavorites = movies.some((movie) => movie.id === movieId)
-    if (isMovieInFavorites) {
-      remove(movieId)
-      return
-    }
-
-    const movie = data!.results.find((movie) => movie.id === movieId)
-    if (movie) {
-      add(movie)
-    }
-  }
 
   return (
     <>
@@ -49,20 +47,24 @@ const Home: NextPage = () => {
       {status === 'loading' && <p>Loading...</p>}
       {status === 'error' && <p>Error: {error.message}</p>}
       {status === 'success' && (
-        <MoviesWrapper>
-          {data.results.map(
-            ({ id, title, poster_path, release_date, vote_average }) => (
-              <Card
-                key={id}
-                title={title}
-                image={imagePath(poster_path)}
-                releaseDate={convertDate(release_date)}
-                rating={vote_average}
-                handleFavorite={() => handleFavorite(id)}
-              />
-            )
-          )}
-        </MoviesWrapper>
+        <>
+          <Title>Popular</Title>
+          <MoviesWrapper>
+            {data.results.map(
+              ({ id, title, poster_path, release_date, vote_average }) => (
+                <Card
+                  key={id}
+                  title={title}
+                  image={imagePath(poster_path)}
+                  releaseDate={convertDate(release_date)}
+                  rating={vote_average}
+                  isFavorite={movies.some((movie) => movie.id === id)}
+                  handleFavorite={() => handle(id, data.results)}
+                />
+              )
+            )}
+          </MoviesWrapper>
+        </>
       )}
     </>
   )

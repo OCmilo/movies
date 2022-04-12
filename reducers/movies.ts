@@ -8,12 +8,15 @@ interface Action {
 enum actions {
   ADD = 'ADD',
   REMOVE = 'REMOVE',
+  SET = 'SET',
 }
 
 const initialState: Movie[] = []
 
 const moviesReducer = (state = initialState, action: Action) => {
   switch (action.type) {
+    case actions.SET:
+      return action.payload
     case actions.ADD:
       const isMovieInFavorites = state.some(
         (movie) => movie.id === action.payload.id
@@ -36,4 +39,15 @@ const removeAction = (id: number) => ({
   payload: id,
 })
 
-export { moviesReducer as default, initialState, addAction, removeAction }
+const setAction = (newMovieList: Movie[]) => ({
+  type: actions.SET,
+  payload: newMovieList,
+})
+
+export {
+  moviesReducer as default,
+  initialState,
+  addAction,
+  removeAction,
+  setAction,
+}
