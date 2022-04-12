@@ -1,32 +1,17 @@
-import styled from 'styled-components'
-import Head from 'next/head'
-import { useState } from 'react'
-import { useQuery } from 'react-query'
-import Card from '../components/Card'
-import { getPopularMovies } from '../api'
-import { convertDate, imagePath } from '../utils'
-import useFavoriteMovies from '../hooks/useFavoriteMovies'
-import useMovieStore from '../hooks/useMovieStore'
-
 import type { NextPage } from 'next'
 import type { PopularMoviesResponse } from '../api'
 
-const MoviesWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  justify-items: center;
-  grid-gap: 1rem;
-  margin-top: 2rem;
-`
-
-const Title = styled.h1`
-  margin-left: 1.5rem;
-  text-align: center;
-
-  @media ${({ theme }) => theme.devices.tablet} {
-    text-align: left;
-  }
-`
+import { useState } from 'react'
+import { useQuery } from 'react-query'
+import Head from 'next/head'
+import styled from 'styled-components'
+import Card from '../components/Card'
+import Title from '../components/Title'
+import { getPopularMovies } from '../api'
+import useFavoriteMovies from '../hooks/useFavoriteMovies'
+import useMovieStore from '../hooks/useMovieStore'
+import { convertDate, imagePath } from '../utils'
+import MoviesWrapper from '../components/MoviesWrapper'
 
 const Home: NextPage = () => {
   // TODO pagination
@@ -42,7 +27,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>Popular Movies</title>
+        <Title>Popular Movies</Title>
       </Head>
       {status === 'loading' && <p>Loading...</p>}
       {status === 'error' && <p>Error: {error.message}</p>}

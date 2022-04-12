@@ -4,14 +4,8 @@ import { convertDate, imagePath } from '../utils'
 import styled from 'styled-components'
 import useMovieStore from '../hooks/useMovieStore'
 import useFavoriteMovies from '../hooks/useFavoriteMovies'
-
-const MoviesWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  justify-items: center;
-  grid-gap: 1rem;
-  margin-top: 2rem;
-`
+import Title from '../components/Title'
+import MoviesWrapper from '../components/MoviesWrapper'
 
 const Favorites: NextPage = () => {
   const { movies } = useMovieStore()
@@ -19,7 +13,7 @@ const Favorites: NextPage = () => {
 
   return (
     <>
-      <h1>Favorites</h1>
+      <Title>Favorites</Title>
       {movies.length ? (
         <MoviesWrapper>
           {movies.map(
