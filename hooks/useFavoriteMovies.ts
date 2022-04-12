@@ -7,20 +7,16 @@ const useFavoriteMovies = () => {
 
   const handle = useCallback(
     (movieId: number, moviesList: Movie[]) => {
-      const handler = (movieId: number, moviesList: Movie[]) => {
-        const isMovieInFavorites = movies.some((movie) => movie.id === movieId)
-        if (isMovieInFavorites) {
-          remove(movieId)
-          return
-        }
-
-        const movie = moviesList.find((movie) => movie.id === movieId)
-        if (movie) {
-          add(movie)
-        }
+      const isMovieInFavorites = movies.some((movie) => movie.id === movieId)
+      if (isMovieInFavorites) {
+        remove(movieId)
+        return
       }
 
-      handler(movieId, moviesList)
+      const movie = moviesList.find((movie) => movie.id === movieId)
+      if (movie) {
+        add(movie)
+      }
     },
     [movies, add, remove]
   )
