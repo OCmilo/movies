@@ -45,7 +45,7 @@ const NavList = styled.ul`
 
 type NavLinkProps = {
   children: React.ReactNode
-  isActive: Boolean
+  isActive?: Boolean
 }
 
 const NavLink = styled.a<NavLinkProps>`
@@ -68,7 +68,11 @@ const Header: React.FC = () => {
 
   return (
     <HeaderWrapper>
-      <HeaderTitle>📽 Movies App</HeaderTitle>
+      <Link href={'/'} passHref>
+        <NavLink>
+          <HeaderTitle>📽 Movies App</HeaderTitle>
+        </NavLink>
+      </Link>
       <Nav>
         <NavList>
           {routes.map(({ name, path }) => (
