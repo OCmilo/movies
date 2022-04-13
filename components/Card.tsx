@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import { MouseEventHandler } from 'react'
 import styled from 'styled-components'
+import ImageWithFallback from './ImageWithFallback'
 
 const CardWrapper = styled.div`
   padding: 0.5rem;
@@ -52,15 +53,7 @@ const Card: React.FC<CardProps> = ({
 }) => (
   <CardWrapper>
     <ImageWrapper>
-      <Image
-        src={image}
-        alt={title}
-        width={500}
-        height={750}
-        layout="fill"
-        loading="lazy"
-        objectFit="cover"
-      />
+      <ImageWithFallback src={image} alt={title} />
     </ImageWrapper>
     <div>
       <Title>{title}</Title>

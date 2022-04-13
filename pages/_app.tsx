@@ -5,6 +5,7 @@ import { MovieStore } from '../contexts/Movies'
 import Layout from '../components/Layout'
 
 import type { AppProps } from 'next/app'
+import ErrorBoundary from '../components/ErrorBoundary'
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -18,7 +19,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             />
           </Head>
           <Layout>
-            <Component {...pageProps} />
+            <ErrorBoundary>
+              <Component {...pageProps} />
+            </ErrorBoundary>
           </Layout>
         </MovieStore>
       </Theme>
