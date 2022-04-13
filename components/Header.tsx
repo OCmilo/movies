@@ -14,7 +14,7 @@ const HeaderWrapper = styled.header`
 
   @media ${({ theme }) => theme.devices.tablet} {
     flex-direction: row;
-    padding: 1rem 5rem;
+    padding: 1rem 4rem;
   }
 `
 
