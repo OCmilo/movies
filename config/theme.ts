@@ -6,16 +6,6 @@ const colors = {
   'Middle Blue Green': '#99e1d9',
 }
 
-const sizes = {
-  mobileS: '320px',
-  mobileM: '375px',
-  mobileL: '425px',
-  tablet: '768px',
-  laptop: '1024px',
-  laptopL: '1440px',
-  desktop: '2560px',
-}
-
 const fontSizes = {
   xs: '0.75rem',
   sm: '0.875rem',
@@ -27,6 +17,16 @@ const fontSizes = {
   '4xl': '2.25rem',
   '5xl': '3rem',
   '6xl': '4rem',
+}
+
+const sizes = {
+  mobileS: '320px',
+  mobileM: '375px',
+  mobileL: '425px',
+  tablet: '768px',
+  laptop: '1024px',
+  laptopL: '1440px',
+  desktop: '2560px',
 }
 
 const devices = {

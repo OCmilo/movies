@@ -90,9 +90,11 @@ const Home: NextPage = () => {
           </MoviesWrapper>
           <MyPaginate
             pageCount={500} // Max page valued specified by API documentation
-            pageRangeDisplayed={5}
-            marginPagesDisplayed={2}
+            pageRangeDisplayed={3}
+            marginPagesDisplayed={1}
             onPageChange={({ selected }) => setPage(selected + 1)}
+            previousLabel="<"
+            nextLabel=">"
           />
         </>
       )}

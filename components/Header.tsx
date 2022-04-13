@@ -33,9 +33,14 @@ const Nav = styled.nav`
 const NavList = styled.ul`
   display: flex;
   align-items: center;
+  justify-content: center;
+  gap: 1rem;
   list-style: none;
   margin: 0;
   padding: 0;
+  
+  @media ${({ theme }) => theme.devices.mobileM} {
+    gap: 2rem;
 `
 
 type NavLinkProps = {
@@ -44,7 +49,6 @@ type NavLinkProps = {
 }
 
 const NavLink = styled.a<NavLinkProps>`
-  margin-left: 2rem;
   font-size: 1.5rem;
   font-weight: 600;
   color: ${(props) => props.theme.colors.white};

@@ -7,6 +7,20 @@ import useFavoriteMovies from '../hooks/useFavoriteMovies'
 import Title from '../components/Title'
 import MoviesWrapper from '../components/MoviesWrapper'
 
+const NoMovies = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10rem;
+  width: 100%;
+  height: 100%;
+`
+
+const SubTitle = styled.h2`
+  text-align: center;
+  margin-top: 2rem;
+`
+
 const Favorites: NextPage = () => {
   const { movies } = useMovieStore()
   const { handle } = useFavoriteMovies()
@@ -31,7 +45,9 @@ const Favorites: NextPage = () => {
           )}
         </MoviesWrapper>
       ) : (
-        <p>No favorites yet</p>
+        <NoMovies>
+          <SubTitle>Your starred movies will show up here.</SubTitle>
+        </NoMovies>
       )}
     </>
   )
