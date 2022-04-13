@@ -24,9 +24,8 @@ const OptimizedImageWithFallback: React.FC<ImageProps> = ({
       <Image
         src={imageError ? fallBackSrc : src}
         alt={alt}
-        width={500}
-        height={750}
-        objectFit="cover"
+        width={288}
+        height={432}
         onError={() => setImageError(true)}
       />
     </div>
