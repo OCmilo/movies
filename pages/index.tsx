@@ -66,7 +66,7 @@ const Home: NextPage = () => {
   return (
     <>
       <Head>
-        <title>popular movies</title>
+        <title>Popular Movies</title>
       </Head>
       {status === 'loading' && <p>Loading...</p>}
       {status === 'error' && <p>Error: {error.message}</p>}

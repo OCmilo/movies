@@ -6,6 +6,7 @@ import useMovieStore from '../hooks/useMovieStore'
 import useFavoriteMovies from '../hooks/useFavoriteMovies'
 import Title from '../components/Title'
 import MoviesWrapper from '../components/MoviesWrapper'
+import Head from 'next/head'
 
 const NoMovies = styled.div`
   display: flex;
@@ -27,6 +28,9 @@ const Favorites: NextPage = () => {
 
   return (
     <>
+      <Head>
+        <title>My Movies</title>
+      </Head>
       <Title>Favorites</Title>
       {movies.length ? (
         <MoviesWrapper>
